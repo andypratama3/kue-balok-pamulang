@@ -1,0 +1,74 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: #fff8f6;
+  --color-primary: #230904;
+  --color-on-primary: #ffffff;
+  --color-primary-fixed: #ffdad3;
+  --color-on-primary-fixed: #30130c;
+  --color-primary-container: #3d1d16;
+  --color-surface-tint: #7e544b;
+  --color-surface: #fff8f6;
+  --color-on-surface: #251916;
+  --color-surface-variant: #f5ddd8;
+  --color-on-surface-variant: #514441;
+  --color-surface-container: #ffe9e4;
+  --color-on-tertiary-container: #ba821b;
+  --color-tertiary-fixed: #ffddaf;
+  --color-on-tertiary-fixed: #281800;
+  --color-error-container: #ffdad6;
+  --color-on-error-container: #93000a;
+  --color-outline: #837470;
+  --color-outline-variant: #d5c2bf;
+
+  --spacing-gutter: 24px;
+  --spacing-section-padding: 80px;
+  --spacing-container-max: 1200px;
+  --spacing-element-gap: 16px;
+
+  --font-bricolage: "Bricolage Grotesque", sans-serif;
+  --font-be-vietnam: "Be Vietnam Pro", sans-serif;
+
+  --font-display-lg: var(--font-bricolage);
+  --font-headline-lg: var(--font-bricolage);
+  --font-headline-md: var(--font-bricolage);
+  --font-price-display: var(--font-bricolage);
+  
+  --font-body-lg: var(--font-be-vietnam);
+  --font-body-md: var(--font-be-vietnam);
+  --font-label-bold: var(--font-be-vietnam);
+
+  --text-display-lg: 64px;
+  --text-display-lg--line-height: 72px;
+  --text-display-lg--letter-spacing: -0.02em;
+  --text-display-lg--font-weight: 800;
+
+  --text-headline-lg: 40px;
+  --text-headline-lg--line-height: 48px;
+  --text-headline-lg--font-weight: 700;
+
+  --text-headline-md: 24px;
+  --text-headline-md--line-height: 32px;
+  --text-headline-md--font-weight: 600;
+
+  --text-body-lg: 18px;
+  --text-body-lg--line-height: 28px;
+
+  --text-body-md: 16px;
+  --text-body-md--line-height: 24px;
+
+  --text-label-bold: 14px;
+  --text-label-bold--line-height: 20px;
+  --text-label-bold--font-weight: 700;
+
+  --text-price-display: 28px;
+  --text-price-display--line-height: 32px;
+  --text-price-display--font-weight: 800;
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-on-background);
+  font-family: var(--font-be-vietnam);
+  -webkit-font-smoothing: antialiased;
+}
