@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from './components/Header';
+import PromoTicker from './components/PromoTicker';
 import Hero from './components/Hero';
 import Features from './components/Features';
 import Products from './components/Products';
@@ -10,11 +11,42 @@ import Testimonials from './components/Testimonials';
 import Faq from './components/Faq';
 import Footer from './components/Footer';
 import CartDrawer, { CartItem } from './components/CartDrawer';
+import LiveOrderTicker from './components/LiveOrderTicker';
+import AdminLogin from './components/AdminLogin';
+import AdminPanel from './components/AdminPanel';
 import { MessageCircle } from 'lucide-react';
+
+type AppPage = 'home' | 'admin';
+
+function getCurrentPage(): AppPage {
+  const params = new URLSearchParams(window.location.search);
+  return params.get('page') === 'admin' ? 'admin' : 'home';
+}
 
 export default function App() {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [currentPage, setCurrentPage] = useState<AppPage>(getCurrentPage);
+  const [isAdminAuthed, setIsAdminAuthed] = useState<boolean>(
+    () => sessionStorage.getItem('kbp_admin_auth') === 'true'
+  );
+
+  // Listen URL changes (back/forward navigation)
+  useEffect(() => {
+    const handlePopState = () => setCurrentPage(getCurrentPage());
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
+  // Sync URL when page changes via internal state
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const urlPage = params.get('page') === 'admin' ? 'admin' : 'home';
+    if (urlPage !== currentPage) {
+      const newUrl = currentPage === 'admin' ? '/?page=admin' : '/';
+      window.history.pushState(null, '', newUrl);
+    }
+  }, [currentPage]);
 
   const handleAddToCart = (newItem: CartItem) => {
     setCartItems(prev => {
@@ -54,12 +86,36 @@ export default function App() {
 
   const totalCartCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
 
+  // ── Admin Page ──
+  if (currentPage === 'admin') {
+    if (!isAdminAuthed) {
+      return (
+        <AdminLogin
+          onLogin={() => setIsAdminAuthed(true)}
+        />
+      );
+    }
+    return (
+      <AdminPanel
+        onLogout={() => {
+          setIsAdminAuthed(false);
+          setCurrentPage('home');
+          window.history.pushState(null, '', '/');
+        }}
+      />
+    );
+  }
+
+  // ── Main Website ──
   return (
     <div className="min-h-screen flex flex-col bg-[#fff8f6] font-['Be_Vietnam_Pro'] text-[#230904] selection:bg-[#ffddaf] selection:text-[#230904]">
+      {/* Top Announcement Ticker */}
+      <PromoTicker />
+
       {/* Header */}
-      <Header 
-        cartCount={totalCartCount} 
-        onOpenCart={() => setIsCartOpen(true)} 
+      <Header
+        cartCount={totalCartCount}
+        onOpenCart={() => setIsCartOpen(true)}
       />
 
       {/* Main Content */}
@@ -77,8 +133,11 @@ export default function App() {
       {/* Footer */}
       <Footer />
 
+      {/* Live Social Proof Order Notification */}
+      <LiveOrderTicker />
+
       {/* Cart Drawer */}
-      <CartDrawer 
+      <CartDrawer
         isOpen={isCartOpen}
         onClose={() => setIsCartOpen(false)}
         items={cartItems}
@@ -88,7 +147,7 @@ export default function App() {
       />
 
       {/* Floating WhatsApp Quick Action Button */}
-      <a 
+      <a
         href="https://wa.me/6285717066697?text=Halo%20Kue%20Balok%20Pamulang,%20saya%20mau%20pesan%20Kue%20Balok%20Lumer!"
         target="_blank"
         rel="noopener noreferrer"

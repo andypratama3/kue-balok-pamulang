@@ -12,7 +12,7 @@ export default function Footer() {
             <img 
               alt="Logo Kue Balok Pamulang" 
               className="h-6 w-auto grayscale opacity-80" 
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuBzVtGNVlOKraOwBYqLp1GwTlJRTIKzUCyI4OJTigKDvTWoUNN78RQnBgw2yoLkd-65J5F59u8Y7fOqH7Iihss-MEUQm_vaQ-7I_PqCe6yKxfrOc5Ij-M4BYCimV4u9KNrlNYiCrvmlNlF2fSewZUsWa55pBd2DY7Dw4ZBsLCsos41DZWYA9tijxF2cuMPo4c4tIkh3yIlcTyaIO3KYvtAp5jcVKOQ67j2kSXFayciIR0LE00_6XswL" 
+              src="/logo.jpg" 
             /> 
             <span className="font-['Bricolage_Grotesque'] text-xl font-bold text-[#230904]">
               Kue Balok Pamulang
