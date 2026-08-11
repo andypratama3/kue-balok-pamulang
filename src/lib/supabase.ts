@@ -14,10 +14,16 @@ function createSupabaseClient(): SupabaseClient {
   if (!supabaseUrl || !supabaseAnonKey) {
     // Buat client dummy agar aplikasi tetap berjalan tanpa crash saat belum dikonfigurasi.
     // Semua query akan error "not configured", lalu fallback data dipakai.
+    console.warn(
+      '[Supabase] ⚠️ Belum terkonfigurasi: VITE_SUPABASE_URL dan/atau VITE_SUPABASE_ANON_KEY ' +
+        'tidak ada saat build. Semua fetch/upload akan gagal ke placeholder.supabase.co. ' +
+        'Isi env lalu rebuild/redeploy.',
+    );
     return createClient('https://placeholder.supabase.co', 'placeholder', {
       auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false },
     });
   }
+  console.info('[Supabase] Terkonfigurasi ✓ URL:', supabaseUrl);
   return createClient(supabaseUrl, supabaseAnonKey, {
     auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false },
   });

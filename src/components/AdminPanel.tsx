@@ -94,6 +94,7 @@ export default function AdminPanel({ onLogout }: AdminPanelProps) {
       }
       closeModal();
     } catch (err: unknown) {
+      console.error('[AdminPanel] Gagal menyimpan produk:', err);
       setSaveError(err instanceof Error ? err.message : 'Gagal menyimpan produk.');
     } finally {
       setSaving(false);
@@ -134,6 +135,7 @@ export default function AdminPanel({ onLogout }: AdminPanelProps) {
       // Simpan path relatif — getImageUrl() akan konversi ke URL publik
       setForm(f => ({ ...f, image: fileName }));
     } catch (err: unknown) {
+      console.error('[AdminPanel] Gagal upload gambar:', err);
       setSaveError(`Gagal upload gambar: ${err instanceof Error ? err.message : 'Error tidak diketahui'}`);
     } finally {
       setUploadingImage(false);
@@ -207,11 +209,21 @@ export default function AdminPanel({ onLogout }: AdminPanelProps) {
             <div className="flex items-start gap-3">
               <AlertCircle className="w-6 h-6 text-amber-600 flex-shrink-0 mt-0.5" />
               <div className="space-y-2 flex-grow">
-                <h3 className="font-bold text-base">Inisialisasi Tabel Supabase Diperlukan</h3>
+                <h3 className="font-bold text-base">Supabase Tidak Dapat Diakses</h3>
                 <p className="text-xs text-amber-800 leading-relaxed">
-                  Tabel <code className="bg-amber-100 px-1.5 py-0.5 rounded font-mono">products</code> belum ada di database Supabase Anda (<code className="bg-amber-100 px-1.5 py-0.5 rounded font-mono">hcwzsdiujdzywtbxubqm</code>).
-                  Klik tombol di bawah untuk menyalin query SQL, lalu tempel & jalankan di Supabase.
+                  <span className="font-semibold">Error:</span> {error}
                 </p>
+                <p className="text-xs text-amber-800 leading-relaxed">
+                  Data yang ditampilkan adalah fallback lokal. Jika error berisi <code className="bg-amber-100 px-1.5 py-0.5 rounded font-mono">placeholder.supabase.co</code>,
+                  berarti env <code className="bg-amber-100 px-1.5 py-0.5 rounded font-mono">VITE_SUPABASE_URL</code> / <code className="bg-amber-100 px-1.5 py-0.5 rounded font-mono">VITE_SUPABASE_ANON_KEY</code> tidak ada saat build.
+                  Cek console browser (F12) untuk detail lengkap.
+                </p>
+                {error.includes('belum ada') && (
+                  <p className="text-xs text-amber-800 leading-relaxed">
+                    Tabel <code className="bg-amber-100 px-1.5 py-0.5 rounded font-mono">products</code> belum ada di database Supabase Anda (<code className="bg-amber-100 px-1.5 py-0.5 rounded font-mono">hcwzsdiujdzywtbxubqm</code>).
+                    Klik tombol di bawah untuk menyalin query SQL, lalu tempel & jalankan di Supabase.
+                  </p>
+                )}
                 
                 <div className="flex flex-wrap items-center gap-3 pt-2">
                   <button

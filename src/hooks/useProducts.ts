@@ -28,7 +28,7 @@ export function useProducts() {
       }
     } catch (err: unknown) {
       console.warn('[useProducts] Supabase belum terinisialisasi atau error, menggunakan fallback data:', err);
-      setError('Tabel Supabase belum terinisialisasi. Menampilkan menu default.');
+      setError(`Gagal fetch dari Supabase (fallback data dipakai): ${err instanceof Error ? err.message : String(err)}`);
       setProducts(SEED_PRODUCTS);
     } finally {
       setLoading(false);
@@ -68,7 +68,7 @@ export function useAllProducts() {
       }
     } catch (err: unknown) {
       console.warn('[useAllProducts] Gagal fetch dari database:', err);
-      setError('Tabel "products" belum dibuat di Supabase. Silakan inisialisasi SQL schema.');
+      setError(`Gagal fetch dari database (fallback dipakai): ${err instanceof Error ? err.message : String(err)}`);
       setProducts(SEED_PRODUCTS);
     } finally {
       setLoading(false);
