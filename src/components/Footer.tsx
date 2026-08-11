@@ -101,7 +101,16 @@ export default function Footer() {
       </div>
       
       <div className="max-w-[1200px] mx-auto px-6 mt-8 text-center text-[#514441] text-xs font-['Be_Vietnam_Pro']">
-        © {new Date().getFullYear()} Kue Balok Pamulang. Dibuat dengan sepenuh hati.
+        © {new Date().getFullYear()} Kue Balok Pamulang. Dibuat oleh{' '}
+        <a
+          href="https://github.com/andypratama3"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-bold text-[#ba821b] hover:underline"
+        >
+          Andy Pratama
+        </a>
+        .
       </div>
     </footer>
   );
