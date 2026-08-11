@@ -181,7 +181,7 @@ export default function CartDrawer({
 
               <div className="flex items-center gap-2 text-[11px] text-on-surface-variant bg-surface p-2.5 rounded-lg border border-outline-variant/20">
                 <Sparkles className="w-4 h-4 text-on-tertiary-container flex-shrink-0" />
-                <span>Dipanggang fresh saat pesanan dikonfirmasi di cabang Pamulang.</span>
+                <span>Dipanggang fresh saat pesanan dikonfirmasi.</span>
               </div>
 
               <button

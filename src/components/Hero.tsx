@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Star, ArrowRight, MapPin, Flame, Clock, Sparkles, ShieldCheck, Heart, ShoppingBag } from 'lucide-react';
+import React, { useState } from 'react';
+import { Star, ArrowRight, MapPin, Flame, Clock, Sparkles, ShieldCheck, ShoppingBag } from 'lucide-react';
 
 interface HeroProps {
   onOpenCart?: () => void;
@@ -7,15 +7,7 @@ interface HeroProps {
 
 export default function Hero({ onOpenCart }: HeroProps) {
   const [activeTab, setActiveTab] = useState<'lumer' | 'keju' | 'matcha'>('lumer');
-  const [bakedCount, setBakedCount] = useState(148);
-
-  // Counter animasi kecil untuk memberi kesan live
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setBakedCount(prev => prev + Math.floor(Math.random() * 2) + 1);
-    }, 12000);
-    return () => clearInterval(timer);
-  }, []);
+  const bakedCount = 148;
 
   const heroItems = {
     lumer: {
@@ -44,44 +36,34 @@ export default function Hero({ onOpenCart }: HeroProps) {
   const currentHero = heroItems[activeTab];
 
   return (
-    <section className="relative w-full min-h-[900px] flex flex-col justify-center overflow-hidden pt-28 pb-16 bg-[#fff8f6]">
-      {/* Dynamic Background Mesh Gradients */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-gradient-to-tr from-[#ffe3d6] via-[#ffd0c2]/40 to-transparent rounded-full blur-3xl pointer-events-none animate-pulse" />
-      <div className="absolute top-20 right-10 w-96 h-96 bg-[#ffddaf]/30 rounded-full blur-3xl pointer-events-none" />
+    <section className="relative w-full min-h-[800px] flex flex-col justify-center overflow-hidden pt-28 pb-16 bg-[#fff8f6]">
+      {/* Background Mesh Gradients */}
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-tr from-[#ffe3d6] via-[#ffd0c2]/30 to-transparent rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-20 right-10 w-80 h-80 bg-[#ffddaf]/20 rounded-full blur-3xl pointer-events-none" />
 
-      {/* Floating Sparkle Decorative Elements */}
-      <div className="absolute top-32 left-[10%] text-[#ba821b]/40 animate-bounce duration-1000">
-        <Sparkles className="w-8 h-8" />
-      </div>
-      <div className="absolute bottom-20 right-[8%] text-[#7e544b]/30 animate-pulse">
-        <Heart className="w-10 h-10 fill-current" />
-      </div>
+
 
       <div className="relative z-10 w-full max-w-[1240px] mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-12">
         
         {/* Left Column - Copy & CTA */}
         <div className="w-full md:w-1/2 flex flex-col gap-6 pt-4">
           
-          {/* Live Kitchen Badge */}
+          {/* Kitchen Badge */}
           <div className="flex flex-wrap items-center gap-3">
             <div className="inline-flex items-center gap-2 bg-[#230904] text-[#ba821b] border border-[#ba821b]/40 px-4 py-1.5 rounded-full shadow-lg">
-              <span className="relative flex h-2.5 w-2.5">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
-              </span>
               <span className="font-['Be_Vietnam_Pro'] text-[12px] font-bold tracking-wider text-amber-200 uppercase">
-                DAPUR BUKA • {bakedCount} BOX DIPANGGANG HARI INI
+                DAPUR BUKA • FRESH DIPANGGANG SETIAP HARI
               </span>
             </div>
 
             <div className="hidden sm:inline-flex items-center gap-1.5 bg-[#ffddaf]/50 text-[#7e544b] border border-[#ba821b]/20 px-3 py-1 rounded-full text-xs font-bold">
-              <Flame className="w-3.5 h-3.5 fill-current text-rose-500 animate-bounce" />
+              <Flame className="w-3.5 h-3.5 fill-current text-rose-500" />
               <span>Fresh From Oven</span>
             </div>
           </div>
           
           {/* Main Title */}
-          <h1 className="font-['Bricolage_Grotesque'] text-[44px] sm:text-[56px] lg:text-[64px] leading-[1.1] font-extrabold text-[#230904] tracking-tight">
+          <h1 className="font-['Bricolage_Grotesque'] text-[42px] sm:text-[52px] lg:text-[60px] leading-[1.1] font-extrabold text-[#230904] tracking-tight">
             Sensasi Lumer <br />
             <span className="bg-gradient-to-r from-[#7e544b] via-[#ba821b] to-[#230904] bg-clip-text text-transparent">
               Kue Balok Pamulang

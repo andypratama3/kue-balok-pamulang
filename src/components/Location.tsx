@@ -9,7 +9,7 @@ export default function Location() {
       <div className="w-full h-[400px] relative flex items-center justify-center">
         <div 
           className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuC-hdJd04qD_8tjgILzc6plKlOypXKMAbPkyfPS1NdYkc7CI3pTbhuh-2sBeXUT_AsgShwq7Lzg5nLAY5K5cE0600F5EXJlwOqWD4FxgdadmgFJ300Gb-4EcfLtYYmU-khLv3UUTPUi4MLp2CIVFKzKlK6gezaqQJMwACd3HjDEZ42i_h3vPlATWL3ZLZ8KIMFS-j29JGJpR_1otlv1vrWbkFaW9zXk3nTJXupcuKzEllh2iM5vYWZO')" }}
+          style={{ backgroundImage: "url('/location.jpg')" }}
         >
           <div className="absolute inset-0 bg-[#fff8f6]/75 backdrop-blur-sm"></div>
         </div>

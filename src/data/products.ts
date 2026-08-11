@@ -58,7 +58,7 @@ export const SEED_PRODUCTS: Product[] = [
     id: 'top-green-tea',
     name: 'Kue Balok GREEN TEA',
     price: 24000,
-    image: 'https://images.unsplash.com/photo-1534432182912-638548dd0676?auto=format&fit=crop&q=80&w=400',
+    image: 'https://images.unsplash.com/photo-1515823064-d6e0c04616a7?auto=format&fit=crop&q=80&w=400',
     category: 'topping',
     variant: '5 Pcs',
     color: 'bg-[#96bd76]',

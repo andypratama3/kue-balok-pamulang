@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Header from './components/Header';
 import PromoTicker from './components/PromoTicker';
 import Hero from './components/Hero';
@@ -11,7 +11,6 @@ import Testimonials from './components/Testimonials';
 import Faq from './components/Faq';
 import Footer from './components/Footer';
 import CartDrawer, { CartItem } from './components/CartDrawer';
-import LiveOrderTicker from './components/LiveOrderTicker';
 import AdminLogin from './components/AdminLogin';
 import AdminPanel from './components/AdminPanel';
 import { MessageCircle } from 'lucide-react';
@@ -48,7 +47,7 @@ export default function App() {
     }
   }, [currentPage]);
 
-  const handleAddToCart = (newItem: CartItem) => {
+  const handleAddToCart = useCallback((newItem: CartItem) => {
     setCartItems(prev => {
       const existingIndex = prev.findIndex(item => item.id === newItem.id);
       if (existingIndex > -1) {
@@ -60,9 +59,9 @@ export default function App() {
       }
     });
     setIsCartOpen(true);
-  };
+  }, []);
 
-  const handleUpdateQuantity = (id: string, delta: number) => {
+  const handleUpdateQuantity = useCallback((id: string, delta: number) => {
     setCartItems(prev => {
       return prev
         .map(item => {
@@ -74,15 +73,15 @@ export default function App() {
         })
         .filter(Boolean) as CartItem[];
     });
-  };
+  }, []);
 
-  const handleRemoveItem = (id: string) => {
+  const handleRemoveItem = useCallback((id: string) => {
     setCartItems(prev => prev.filter(item => item.id !== id));
-  };
+  }, []);
 
-  const handleClearCart = () => {
+  const handleClearCart = useCallback(() => {
     setCartItems([]);
-  };
+  }, []);
 
   const totalCartCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
 
@@ -133,9 +132,6 @@ export default function App() {
       {/* Footer */}
       <Footer />
 
-      {/* Live Social Proof Order Notification */}
-      <LiveOrderTicker />
-
       {/* Cart Drawer */}
       <CartDrawer
         isOpen={isCartOpen}
@@ -151,10 +147,10 @@ export default function App() {
         href="https://wa.me/6285717066697?text=Halo%20Kue%20Balok%20Pamulang,%20saya%20mau%20pesan%20Kue%20Balok%20Lumer!"
         target="_blank"
         rel="noopener noreferrer"
-        className="fixed bottom-6 right-6 z-40 bg-[#25D366] text-white p-4 rounded-full shadow-2xl hover:scale-110 transition-transform flex items-center justify-center group border-2 border-white"
+        className="fixed bottom-6 right-6 z-40 bg-[#25D366] text-white p-4 rounded-full shadow-2xl hover:scale-105 transition-transform flex items-center justify-center group border-2 border-white"
         aria-label="Chat WhatsApp Admin"
       >
-        <span className="absolute -top-2 -right-2 bg-rose-500 text-white font-bold text-[10px] px-2 py-0.5 rounded-full animate-bounce shadow-md">
+        <span className="absolute -top-2 -right-2 bg-rose-500 text-white font-bold text-[10px] px-2 py-0.5 rounded-full shadow-md">
           Chat WA
         </span>
         <MessageCircle className="w-7 h-7 fill-current" />

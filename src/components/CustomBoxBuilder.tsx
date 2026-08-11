@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 import { Sparkles, Plus, Check, ShoppingCart, RefreshCw, Star } from 'lucide-react';
 import { CartItem } from './CartDrawer';
 
@@ -19,24 +19,24 @@ export default function CustomBoxBuilder({ onAddToCart }: CustomBoxBuilderProps)
     { id: 'strawberry', name: 'Strawberry Cream', color: 'bg-[#e05670]', textColor: 'text-white', priceAdd: 0 },
   ];
 
-  const totalFilled = (Object.values(selectedToppings) as number[]).reduce((acc: number, count: number) => acc + count, 0);
+  const totalFilled = useMemo(() => 
+    (Object.values(selectedToppings) as number[]).reduce((acc: number, count: number) => acc + count, 0), 
+    [selectedToppings]
+  );
 
-  const basePrice = boxSize === 6 ? 22000 : 36000;
+  const basePrice = useMemo(() => boxSize === 6 ? 22000 : 36000, [boxSize]);
   
-  // No extra charge for any topping variant
-  const extraCost = 0;
-
   const totalPrice = basePrice;
 
-  const handleAddTopping = (id: string) => {
+  const handleAddTopping = useCallback((id: string) => {
     if (totalFilled >= boxSize) return;
     setSelectedToppings(prev => ({
       ...prev,
       [id]: (prev[id] || 0) + 1
     }));
-  };
+  }, [totalFilled, boxSize]);
 
-  const handleRemoveTopping = (id: string) => {
+  const handleRemoveTopping = useCallback((id: string) => {
     if (!selectedToppings[id]) return;
     setSelectedToppings(prev => {
       const next = { ...prev };
@@ -47,13 +47,13 @@ export default function CustomBoxBuilder({ onAddToCart }: CustomBoxBuilderProps)
       }
       return next;
     });
-  };
+  }, [selectedToppings]);
 
-  const handleReset = () => {
+  const handleReset = useCallback(() => {
     setSelectedToppings({});
-  };
+  }, []);
 
-  const handleAddCustomBoxToCart = () => {
+  const handleAddCustomBoxToCart = useCallback(() => {
     if (totalFilled < boxSize) return;
 
     const toppingSummary = (Object.entries(selectedToppings) as [string, number][])
@@ -74,7 +74,7 @@ export default function CustomBoxBuilder({ onAddToCart }: CustomBoxBuilderProps)
 
     onAddToCart(customCartItem);
     handleReset();
-  };
+  }, [totalFilled, boxSize, totalPrice, selectedToppings, onAddToCart, handleReset]);
 
   return (
     <section className="w-full py-20 bg-[#fff8f6] relative overflow-hidden" id="custom-box">

@@ -86,9 +86,9 @@ export default function Features() {
           ))}
         </div>
 
-        {/* Live Interactive Stats Counter Bar */}
+        {/* Stats Counter Bar */}
         <div className="bg-[#230904] text-white p-8 sm:p-10 rounded-[2.5rem] shadow-2xl border border-[#ba821b]/30 relative overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent animate-pulse" />
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent" />
           
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center relative z-10">
             {stats.map((stat, idx) => {

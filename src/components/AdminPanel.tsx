@@ -244,7 +244,7 @@ CREATE POLICY "Allow delete" ON public.products FOR DELETE USING (true);
 
 -- Seed initial data
 INSERT INTO public.products (id, name, price, image, category, variant, color, text_color, badge, description, is_active, sort_order) VALUES
-('mix-rasa-5', 'Kue Balok Lumer Mix Rasa', 23000, 'https://lh3.googleusercontent.com/aida-public/AB6AXuDEiJSiZoHwuaUC55-AII880newJe0j_q2xVAwTNsyhGE_DHBWXwA3qQ1ijnUKPwbw0lrptL0LN6DffoGmDRqF5EC_JoxV4AhPgBYm_Z1vMrD5Lz06M7pk1WusdHEflHI7dZBCvkROukitrPBiBcdJSEIjZ7MHYmUv8nXtFBBASKkqRuQ6DmYtniZ9iqeZuYZFycx_1VhNYQczH-71U77MQIMVK1FJBF3NtaKl2Iq7rNmt1a01Zz7IE', 'signature', '5 Pcs (Mix Rasa)', NULL, NULL, 'PALING LARIS', 'Kenikmatan tertinggi. Kombinasi variasi topping terbaik kami.', true, 0),
+('mix-rasa-5', 'Kue Balok Lumer Mix Rasa', 23000, 'https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&q=80&w=800', 'signature', '5 Pcs (Mix Rasa)', NULL, NULL, 'PALING LARIS', 'Kenikmatan tertinggi. Kombinasi variasi topping terbaik kami.', true, 0),
 ('ori-5', 'Kue Balok Original Coklat', 18000, 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&q=80&w=800', 'classic', '5 Pcs', NULL, NULL, NULL, 'Varian original terfavorit. Cokelat murni berkualitas tinggi.', true, 1),
 ('keju-5', 'Original Coklat Full Toping Keju', 25000, 'https://images.unsplash.com/photo-1588195538326-c5b1e9f80a1b?auto=format&fit=crop&q=80&w=800', 'classic', '5 Pcs', NULL, NULL, NULL, 'Perpaduan sempurna manis dan gurih.', true, 2),
 ('top-green-tea', 'Kue Balok GREEN TEA', 24000, 'https://images.unsplash.com/photo-1534432182912-638548dd0676?auto=format&fit=crop&q=80&w=400', 'topping', '5 Pcs', 'bg-[#96bd76]', 'text-white', 'GREEN TEA', 'Paduan matcha premium.', true, 3),

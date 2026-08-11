@@ -136,7 +136,7 @@ INSERT INTO public.products (id, name, price, image, category, variant, color, t
   'top-green-tea',
   'Kue Balok GREEN TEA',
   24000,
-  'https://images.unsplash.com/photo-1534432182912-638548dd0676?auto=format&fit=crop&q=80&w=400',
+  'https://images.unsplash.com/photo-1515823064-d6e0c04616a7?auto=format&fit=crop&q=80&w=400',
   'topping', '5 Pcs', 'bg-[#96bd76]', 'text-white', 'GREEN TEA',
   'Paduan matcha premium dengan isian cokelat lumer.',
   true, 3

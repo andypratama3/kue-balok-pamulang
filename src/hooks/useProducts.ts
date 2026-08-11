@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import { supabase, Product } from '../lib/supabase';
 import { SEED_PRODUCTS } from '../data/products';
 
@@ -39,7 +39,9 @@ export function useProducts() {
     fetchProducts();
   }, [fetchProducts]);
 
-  return { products, loading, error, refetch: fetchProducts };
+  const memoizedProducts = useMemo(() => products, [products]);
+
+  return { products: memoizedProducts, loading, error, refetch: fetchProducts };
 }
 
 // ── Hook untuk Admin (semua produk termasuk nonaktif) ─────────────────────────
@@ -77,7 +79,9 @@ export function useAllProducts() {
     fetchAll();
   }, [fetchAll]);
 
-  const createProduct = async (product: Omit<Product, 'created_at'> & { id?: string }) => {
+  const memoizedProducts = useMemo(() => products, [products]);
+
+  const createProduct = useCallback(async (product: Omit<Product, 'created_at'> & { id?: string }) => {
     const { data, error } = await supabase
       .from('products')
       .insert([product])
@@ -86,25 +90,25 @@ export function useAllProducts() {
     if (error) throw error;
     await fetchAll();
     return data;
-  };
+  }, [fetchAll]);
 
-  const updateProduct = async (id: string, updates: Partial<Product>) => {
+  const updateProduct = useCallback(async (id: string, updates: Partial<Product>) => {
     const { error } = await supabase
       .from('products')
       .update(updates)
       .eq('id', id);
     if (error) throw error;
     await fetchAll();
-  };
+  }, [fetchAll]);
 
-  const deleteProduct = async (id: string) => {
+  const deleteProduct = useCallback(async (id: string) => {
     const { error } = await supabase
       .from('products')
       .delete()
       .eq('id', id);
     if (error) throw error;
     await fetchAll();
-  };
+  }, [fetchAll]);
 
-  return { products, loading, error, refetch: fetchAll, createProduct, updateProduct, deleteProduct };
+  return { products: memoizedProducts, loading, error, refetch: fetchAll, createProduct, updateProduct, deleteProduct };
 }

@@ -1,0 +1,30 @@
+// Prisma schema untuk Kue Balok Pamulang.
+// Sumber kebenaran tabel: supabase_schema.sql / scripts/init-supabase.ts
+// (tabel dibuat lewat SQL; Prisma dipakai sebagai ORM client + migrations).
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Product {
+  id          String   @id
+  name        String
+  price       Int      @default(0)
+  image       String?
+  category    String   @default("classic")
+  variant     String?
+  color       String?
+  text_color  String?
+  badge       String?
+  description String?
+  is_active   Boolean  @default(true)
+  sort_order  Int      @default(0)
+  created_at  DateTime @default(now()) @db.Timestamptz(6)
+
+  @@map("products")
+}

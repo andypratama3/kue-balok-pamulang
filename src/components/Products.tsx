@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo, useCallback } from 'react';
 import { Star, ShoppingCart, Plus, Minus, Loader2, AlertCircle, RefreshCw } from 'lucide-react';
 import { CartItem } from './CartDrawer';
 import { useProducts } from '../hooks/useProducts';
@@ -12,11 +12,11 @@ export default function Products({ onAddToCart }: ProductsProps) {
   const [signatureQty, setSignatureQty] = useState(1);
   const { products, loading, error, refetch } = useProducts();
 
-  const signatureProducts = products.filter(p => p.category === 'signature');
-  const classicProducts = products.filter(p => p.category === 'classic');
-  const toppingProducts = products.filter(p => p.category === 'topping');
+  const signatureProducts = useMemo(() => products.filter(p => p.category === 'signature'), [products]);
+  const classicProducts = useMemo(() => products.filter(p => p.category === 'classic'), [products]);
+  const toppingProducts = useMemo(() => products.filter(p => p.category === 'topping'), [products]);
 
-  const handleAddProduct = (product: Product, qty = 1) => {
+  const handleAddProduct = useCallback((product: Product, qty = 1) => {
     if (onAddToCart) {
       onAddToCart({
         id: product.id,
@@ -27,7 +27,7 @@ export default function Products({ onAddToCart }: ProductsProps) {
         image: getImageUrl(product.image),
       });
     }
-  };
+  }, [onAddToCart]);
 
   const formatPrice = (price: number) => `Rp ${price.toLocaleString('id-ID')}`;
 

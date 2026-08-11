@@ -1,5 +1,5 @@
 import React from 'react';
-import { Navigation, QrCode, Sliders, Share2, Instagram, Phone } from 'lucide-react';
+import { Navigation, Instagram, Phone } from 'lucide-react';
 
 export default function Footer() {
   return (

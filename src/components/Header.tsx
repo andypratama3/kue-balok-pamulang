@@ -1,5 +1,5 @@
 import React from 'react';
-import { ShoppingBag, ShieldCheck, ChefHat } from 'lucide-react';
+import { ShoppingBag, ChefHat } from 'lucide-react';
 
 interface HeaderProps {
   cartCount?: number;
@@ -71,7 +71,7 @@ export default function Header({ cartCount = 0, onOpenCart }: HeaderProps) {
             <ShoppingBag className="w-4 h-4 text-amber-400 group-hover:rotate-12 transition-transform" />
             <span>Pesanan</span>
             {cartCount > 0 && (
-              <span className="bg-[#ba821b] text-white text-[11px] px-2 py-0.5 rounded-full font-bold animate-bounce shadow-sm">
+              <span className="bg-[#ba821b] text-white text-[11px] px-2 py-0.5 rounded-full font-bold shadow-sm">
                 {cartCount}
               </span>
             )}
