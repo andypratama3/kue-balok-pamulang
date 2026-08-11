@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
-import { supabase, Product } from '../lib/supabase';
+import { supabase, isSupabaseConfigured, Product } from '../lib/supabase';
 import { SEED_PRODUCTS } from '../data/products';
 
 // ── Hook untuk website publik (hanya produk aktif) ────────────────────────────
@@ -11,6 +11,14 @@ export function useProducts() {
   const fetchProducts = useCallback(async () => {
     setLoading(true);
     setError(null);
+
+    // Supabase belum dikonfigurasi: langsung pakai fallback, tanpa request jaringan.
+    if (!isSupabaseConfigured) {
+      setProducts(SEED_PRODUCTS);
+      setLoading(false);
+      return;
+    }
+
     try {
       const { data, error: fetchError } = await supabase
         .from('products')
@@ -27,7 +35,6 @@ export function useProducts() {
         setProducts(SEED_PRODUCTS);
       }
     } catch (err: unknown) {
-      console.warn('[useProducts] Supabase belum terinisialisasi atau error, menggunakan fallback data:', err);
       setError(`Gagal fetch dari Supabase (fallback data dipakai): ${err instanceof Error ? err.message : String(err)}`);
       setProducts(SEED_PRODUCTS);
     } finally {
@@ -53,6 +60,13 @@ export function useAllProducts() {
   const fetchAll = useCallback(async () => {
     setLoading(true);
     setError(null);
+
+    if (!isSupabaseConfigured) {
+      setProducts(SEED_PRODUCTS);
+      setLoading(false);
+      return;
+    }
+
     try {
       const { data, error: fetchError } = await supabase
         .from('products')
@@ -67,7 +81,6 @@ export function useAllProducts() {
         setProducts(SEED_PRODUCTS);
       }
     } catch (err: unknown) {
-      console.warn('[useAllProducts] Gagal fetch dari database:', err);
       setError(`Gagal fetch dari database (fallback dipakai): ${err instanceof Error ? err.message : String(err)}`);
       setProducts(SEED_PRODUCTS);
     } finally {
@@ -82,6 +95,9 @@ export function useAllProducts() {
   const memoizedProducts = useMemo(() => products, [products]);
 
   const createProduct = useCallback(async (product: Omit<Product, 'created_at'> & { id?: string }) => {
+    if (!isSupabaseConfigured) {
+      throw new Error('Supabase belum dikonfigurasi. Isi VITE_SUPABASE_URL dan VITE_SUPABASE_ANON_KEY.');
+    }
     const { data, error } = await supabase
       .from('products')
       .insert([product])
@@ -93,6 +109,9 @@ export function useAllProducts() {
   }, [fetchAll]);
 
   const updateProduct = useCallback(async (id: string, updates: Partial<Product>) => {
+    if (!isSupabaseConfigured) {
+      throw new Error('Supabase belum dikonfigurasi. Isi VITE_SUPABASE_URL dan VITE_SUPABASE_ANON_KEY.');
+    }
     const { error } = await supabase
       .from('products')
       .update(updates)
@@ -102,6 +121,9 @@ export function useAllProducts() {
   }, [fetchAll]);
 
   const deleteProduct = useCallback(async (id: string) => {
+    if (!isSupabaseConfigured) {
+      throw new Error('Supabase belum dikonfigurasi. Isi VITE_SUPABASE_URL dan VITE_SUPABASE_ANON_KEY.');
+    }
     const { error } = await supabase
       .from('products')
       .delete()
